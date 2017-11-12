@@ -1,8 +1,12 @@
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.emf.common.util.URI;
 import org.junit.Test;
-import org.xtext.example.mydsl.videoGen.ImageDescription;
+import org.xtext.example.mydsl.videoGen.BlackWhiteFilter;
+import org.xtext.example.mydsl.videoGen.Filter;
 import org.xtext.example.mydsl.videoGen.MandatoryMedia;
 import org.xtext.example.mydsl.videoGen.Media;
 import org.xtext.example.mydsl.videoGen.MediaDescription;
@@ -39,10 +43,20 @@ public class VideoGenTestJava1 {
 
     private void generate(VideoDescription description) {
         System.out.println("ffmpeg -i " + description.getLocation() + " \\");
-        System.out.println(generate(description.getText()) + "\\");
+        List<String> filters = new ArrayList<>();
+        filters.add(generate(description.getText()));
+        filters.add(generate(description.getFilter()));
+        System.out.println("-vf \"" + String.join(",", filters) + "\" \\");
         System.out.println(" out.mkv");
     }
 
+    private String generate(Filter filter) {
+    	String ret = "# Unsupported filter " + filter + " \n";
+    	if (filter instanceof BlackWhiteFilter) {
+    		ret = "hue=s=0";
+    	}
+    	return ret;
+    }
 	private String generate(VideoText text) {
 		String color = text.getColor();
 		if (color == null)
@@ -64,7 +78,7 @@ public class VideoGenTestJava1 {
 
 		String content = text.getContent();
 		//drawbox=y=ih/PHI:color=black@0.4:width=iw:height=48:t=max,
-		String template = "-vf \"format=yuv444p, drawtext=fontfile=OpenSans-Regular.ttf:text='" + content + "':fontcolor=" + color + ":fontsize=" + size + ":x=(w-tw)/2:y=" + ypos + ", format=yuv420p\"";
+		String template = "format=yuv444p, drawtext=fontfile=OpenSans-Regular.ttf:text='" + content + "':fontcolor=" + color + ":fontsize=" + size + ":x=(w-tw)/2:y=" + ypos + ", format=yuv420p";
 		return template;
 	}
 
