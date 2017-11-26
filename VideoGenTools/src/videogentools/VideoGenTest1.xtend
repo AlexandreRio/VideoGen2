@@ -1,3 +1,5 @@
+package videogentools
+
 import org.junit.Test
 import org.eclipse.emf.common.util.URI
 
