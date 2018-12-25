@@ -53,7 +53,7 @@ class FFMPEG {
     	val p = Runtime.runtime.exec(cmd.toString)
     	p.waitFor()
     }
-    
+
     /**
      * Convert the video to a GIF.
      * 

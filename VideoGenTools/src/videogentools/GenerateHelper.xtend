@@ -24,12 +24,12 @@ class GenerateHelper {
     }
 
     def static generate(VideoDescription description) {
-        System.out.println("ffmpeg -i " + description.getLocation() + " \\");
+    	var command = "ffmpeg -i " + description.getLocation() + " \\";
         val List<String> filters = new ArrayList;
         filters.add(generate(description.getText()));
         filters.add(generate(description.getFilter()));
-        System.out.println("-vf \"" + String.join(",", filters) + "\" \\");
-        System.out.println(" out.mkv");
+        command += "-vf \"" + String.join(",", filters) + "\" \\";
+        command += " out.mkv";
     }
 
     def static generate(Filter filter) {

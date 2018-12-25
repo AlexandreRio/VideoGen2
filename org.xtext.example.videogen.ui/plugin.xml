@@ -52,6 +52,10 @@
 				</and>
 			</activeWhen>
 		</handler>
+  <handler
+        class="org.xtext.example.videogen.ui.handlers.GenerateHanders"
+        commandId="org.xtext.example.videogen.ui.commands.sampleCommand">
+  </handler>
 	</extension>
 	<extension point="org.eclipse.core.expressions.definitions">
 		<definition id="org.xtext.example.mydsl.VideoGen.Editor.opened">
@@ -137,6 +141,15 @@
 			description="Copy the qualified name for the selected element"
 			name="Copy Qualified Name">
 	</command>
+ <category
+       id="org.xtext.example.videogen.ui.commands.category"
+       name="Sample Category">
+ </category>
+ <command
+       categoryId="org.xtext.example.videogen.ui.commands.category"
+       id="org.xtext.example.videogen.ui.commands.sampleCommand"
+       name="Generate">
+ </command>
 	</extension>
 	<extension point="org.eclipse.ui.menus">
 		<menuContribution
@@ -182,6 +195,31 @@
 				</visibleWhen>
 			</command>
 		</menuContribution>
+  <menuContribution
+        locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+     <menu
+           id="org.xtext.example.videogen.ui.menus.sampleMenu"
+           label="VideoGen"
+           mnemonic="M">
+        <command
+              commandId="org.xtext.example.videogen.ui.commands.sampleCommand"
+              id="org.xtext.example.videogen.ui.menus.sampleCommand"
+              mnemonic="S">
+        </command>
+     </menu>
+  </menuContribution>
+  <menuContribution
+        locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
+     <toolbar
+           id="org.xtext.example.videogen.ui.toolbars.sampleToolbar">
+        <command
+              commandId="org.xtext.example.videogen.ui.commands.sampleCommand"
+              icon="icons/sample.png"
+              id="org.xtext.example.videogen.ui.toolbars.sampleCommand"
+              tooltip="Generate">
+        </command>
+     </toolbar>
+  </menuContribution>
 	</extension>
 	<extension point="org.eclipse.ui.menus">
 		<menuContribution locationURI="popup:#TextEditorContext?endof=group.find">
@@ -407,4 +445,13 @@
 			type="text">
 		</fileTypes>
 	</extension>
+ <extension
+       point="org.eclipse.ui.bindings">
+    <key
+          commandId="org.xtext.example.videogen.ui.commands.sampleCommand"
+          contextId="org.eclipse.ui.contexts.window"
+          schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+          sequence="M1+6">
+    </key>
+ </extension>
 </plugin>
