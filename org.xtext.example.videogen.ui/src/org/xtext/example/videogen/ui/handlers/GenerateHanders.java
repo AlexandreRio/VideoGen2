@@ -1,5 +1,7 @@
 package org.xtext.example.videogen.ui.handlers;
 
+import java.util.stream.Collectors;
+
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.resources.IFile;
@@ -13,6 +15,8 @@ import org.eclipse.xtext.resource.IResourceServiceProvider;
 import org.eclipse.xtext.ui.resource.IResourceSetProvider;
 import org.xtext.example.mydsl.ui.VideoGenConsole;
 import org.xtext.example.mydsl.videoGen.VideoGeneratorModel;
+
+import videogentools.GenerateHelper;
 
 public class GenerateHanders extends AbstractHandler {
 
@@ -32,6 +36,7 @@ public class GenerateHanders extends AbstractHandler {
 		Resource r = rs.getResource(uri, true);
 
 		VideoGeneratorModel model = (VideoGeneratorModel) r.getContents().get(0);
+		console.printMessageln(GenerateHelper.generate(model).stream().collect(Collectors.joining(",")));
 		console.printMessageln("Auteur " + model.getInformation().getAuthorName());
 
 		return null;

@@ -9,8 +9,16 @@ import org.xtext.example.mydsl.videoGen.Media
 import org.xtext.example.mydsl.videoGen.MediaDescription
 import org.xtext.example.mydsl.videoGen.VideoDescription
 import org.xtext.example.mydsl.videoGen.VideoText
+import org.xtext.example.mydsl.videoGen.VideoGeneratorModel
 
 class GenerateHelper {
+
+	//FIXME: temp for each loop
+	def static generate(VideoGeneratorModel m) {
+		val command = new ArrayList
+		m.medias.forEach[media | command += generate(media)]
+		return command
+	}
 
     def static generate(Media m) {
         if (m instanceof MandatoryMedia)
@@ -30,6 +38,7 @@ class GenerateHelper {
         filters.add(generate(description.getFilter()));
         command += "-vf \"" + String.join(",", filters) + "\" \\";
         command += " out.mkv";
+        return command
     }
 
     def static generate(Filter filter) {

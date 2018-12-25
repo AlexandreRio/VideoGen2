@@ -10,6 +10,11 @@ import java.time.Duration
 
 class FFMPEG {
 
+	def static ffmpegRunCommand(String cmd) {
+		val p = Runtime.runtime.exec(cmd)
+		return (new BufferedReader(new InputStreamReader(p.errorStream)).lines().collect(Collectors.joining("\n")))
+	}
+
 	/**
 	 * Compute the duration of the video.
 	 * 
@@ -63,6 +68,6 @@ class FFMPEG {
     	val cmd = '''ffmpeg -y -i «input» -r 15 «input».gif'''
     	val p = Runtime.runtime.exec(cmd.toString)
     	p.waitFor
-    	println(new BufferedReader(new InputStreamReader(p.errorStream)).lines().collect(Collectors.joining("\n")))
+    	return (new BufferedReader(new InputStreamReader(p.errorStream)).lines().collect(Collectors.joining("\n")))
     }
 }
