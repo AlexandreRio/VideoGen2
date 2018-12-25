@@ -12,4 +12,4 @@ Require-Bundle: org.xtext.example.videogen,
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.xtext.example.mydsl.ide.contentassist.antlr.internal,
  org.xtext.example.mydsl.ide.contentassist.antlr
-
+Automatic-Module-Name: org.xtext.example.videogen.ide

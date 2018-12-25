@@ -26,7 +26,7 @@ public class Main {
             generate((MandatoryMedia)m);
     }
 
-    public void generate(MandatoryMedia m) {
+    public static void generate(MandatoryMedia m) {
         MediaDescription md = m.getDescription();
         if (md instanceof VideoDescription)
             generate((VideoDescription)m.getDescription());
@@ -74,8 +74,8 @@ public class Main {
     }
 
     public static void main(String... args) {
-
-        VideoGeneratorModel videoGen = new VideoGenHelper().loadVideoGenerator(URI.createURI(path));
+    	System.out.println("Duration " + FFMPEG.ffmpegComputeDuration("res/kaamelott.mkv"));
+    	VideoGeneratorModel videoGen = new VideoGenHelper().loadVideoGenerator(URI.createURI(path));
         assertNotNull(videoGen);
 
         System.out.println(videoGen.getInformation().getAuthorName());
